@@ -158,9 +158,9 @@ $DBcon->close();
 
         <?php
         $myQuery = "SELECT * FROM study_group WHERE user_id = ".$_SESSION['userSession'];
-        $result = mysql_query($myQuery) or die($myQuery."<br/><br/>".mysql_error());
+        $result = mysqli_query($conn,$myQuery) or die($myQuery."<br/><br/>".mysqli_error());
         $count = 0;
-        while ($row = mysql_fetch_assoc($result)){
+        while ($row = mysqli_fetch_assoc($result)){
             $count++;
         }
 
@@ -187,9 +187,9 @@ $DBcon->close();
                 <?php
 
                 $myQuery = "SELECT * FROM study_group WHERE user_id = ".$_SESSION['userSession'];
-                $result = mysql_query($myQuery) or die($myQuery."<br/><br/>".mysql_error());
+                $result = mysqli_query($myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
-                while($row = mysql_fetch_assoc($result)):
+                while($row = mysqli_fetch_assoc($result)):
                     ?>
                     <li id="ulaa">
                         <div class="mdl-card mdl-shadow--4dp" style="margin: 16px;">

@@ -7,26 +7,28 @@ if (!isset($_SESSION['userSession'])) {
     header("Location: ../index.php");
 }
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
-$userRow=$query->fetch_array();
-
 if(isset($_GET['gp_id'])){
 
     $gpId = $_GET['gp_id'];
     $group = $DBcon->query("SELECT * FROM study_group WHERE gp_id = $gpId");
     $gpresult = $group->fetch_array();
-
-
 }
 
-if(isset($_POST['btn-creategp'])){
-    $gpname = strip_tags($_POST['gpname']);
-    $gptype = strip_tags($_POST['gptype']);
-    $gp_admin = strip_tags($_POST['gpadmin']);
-    $user_id = strip_tags($_POST['userid']);
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
+$query3 = $DBcon->query("SELECT *, tbl_users.username AS username FROM tbl_users, study_group WHERE study_group.user_id = tbl_users.user_id");
+$userRow=$query->fetch_array();
+$query3Row = $query3->fetch_array();
 
-    $query2 = "INSERT INTO study_group ( gp_name, gp_type, gp_admin, user_id ) VALUES ( '$gpname', '$gptype', '$gp_admin', '$user_id')";
-    $DBcon->query($query2);
+
+
+if(isset($_POST['submitted'])){
+    $Ppostbody = strip_tags($_POST['postBody']);
+    $Puserid = strip_tags($_POST['userid']);
+    $Pgpid = strip_tags($_POST['gpid']);
+    $PpostQuery = "INSERT INTO post (post_body, user_id, gp_id) VALUES ('$Ppostbody', '$Puserid', '$Pgpid')";
+    $DBcon->query($PpostQuery);
+
+
 
 
 
@@ -131,6 +133,17 @@ $DBcon->close();
             color: #6B6B6B;
             text-decoration: none;
         }
+
+        /*style for post dialog design*/
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        /*style for post dialog design*/
     </style>
 </head>
 <body style="background-color: #E8F0FE">
@@ -212,7 +225,7 @@ $DBcon->close();
                                         <div class="wrapper">
                                             <p style="color: #fff;">
                                                 <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
-                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;">Aung Myo Oo</span>
+                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $query3Row['username']; ?></span>
                                                 <br>
                                                 <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
 
@@ -236,7 +249,7 @@ $DBcon->close();
                                 </div>
                                 <hr>
                                 <div class="container">
-                                    <p>www.google.com</p>
+                                    <p>Warmly Welcome from <?php echo $gpresult['gp_name']; ?></p>
                                 </div>
 
                             </div>
@@ -268,6 +281,209 @@ $DBcon->close();
                         </div>
                     </div>
                 </div>
+                <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-9">
+                        <div id="card2">
+                            <div id="post">
+                                <div>
+                                    <div class="banner">
+                                        <div class="wrapper">
+                                            <p style="color: #fff;">
+                                                <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
+                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $query3Row['username']; ?></span>
+                                                <br>
+                                                <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span id="rigpost">
+                                        <button id="demo-menu-lower-right"
+                                                class="mdl-button mdl-js-button mdl-button--icon">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+
+                                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                            for="demo-menu-lower-right">
+                                            <li class="mdl-menu__item">Some Action</li>
+                                            <li class="mdl-menu__item">Another Action</li>
+                                            <li disabled class="mdl-menu__item">Disabled Action</li>
+                                            <li class="mdl-menu__item">Yet Another Action</li>
+                                        </ul>
+                                    </span>
+                                </div>
+                                <hr>
+                                <div class="container">
+                                    <p>Warmly Welcome from <?php echo $gpresult['gp_name']; ?></p>
+                                </div>
+
+                            </div>
+                            <div style="position: relative;">
+                                <div class="container-fluid" style="width: 100%;background-color: #EEEEEE;">
+                                    <form>
+                                        <div id="comment" style="width: 100%;">
+                                            <img src="img/10.jpg" style="width: 15px; height: 15px; border-radius: 100%">
+                                            <div class="mdl-textfield mdl-js-textfield" style="width: 95%;">
+                                                <input class="mdl-textfield__input" type="text" id="sample1">
+                                                <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                            </div>
+                                            <button id="demo-menu-lower-right"
+                                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                                <i class="material-icons">photo_camera</i>
+                                            </button>
+                                            <button id="demo-menu-lower-right"
+                                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                                <i class="material-icons">link</i>
+                                            </button>
+                                            <button style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                Button
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                start floating action button -->
+                <nav class="container-float">
+                    <a type="button" id="show-dialog" class="buttons-float" tooltip="New Post"></a>
+                    <a class="buttons-float" href="#" tooltip="Compose">
+                        <span id="spn" class="rotate-spn"></span>
+                    </a>
+                </nav>
+
+                <dialog class="mdl-dialog">
+                    <h4 class="mdl-dialog__title">Create Group</h4>
+                    <form method="post">
+                        <div class="mdl-dialog__content">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <textarea name="postBody" class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+                                <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                            </div>
+                            <br>
+                            <label for="file-upload" class="custom-file-upload">
+                                <i class="material-icons">image</i>
+                            </label>
+                            <input id="file-upload" type="file"/>
+                            <input type="hidden" name="userid" value="<?php echo $_SESSION['userSession'] ; ?>">
+                            <input type="hidden" name="gpid" value="<?php echo $gpId; ?>">
+                            <!--                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">-->
+
+                            <!--                        <label class="mdl-textfield__label" for="sample3">Admin</label>-->
+                            <!--                    </div>-->
+                        </div>
+                        <div class="mdl-dialog__actions">
+                            <button type="submit" name="submitted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Create</button>
+                            <button type="button" class="mdl-button close">Cancel</button>
+                        </div>
+                    </form>
+                </dialog>
+
+<!--                end of floating action button -->
+
+
 
             </div>
         </div>
@@ -285,4 +501,23 @@ $DBcon->close();
 </div>
 
 </body>
+
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if(! dialog.showModal){
+        dialogPolyfill.registerDialog(dialog);
+
+    }
+
+    showDialogButton.addEventListener('click', function () {
+        dialog.showModal();
+
+    });
+
+    dialog.querySelector('.close').addEventListener('click', function () {
+        dialog.close();
+    });
+
+</script>
 </html>

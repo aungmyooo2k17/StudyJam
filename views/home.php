@@ -97,16 +97,22 @@ $DBcon->close();
 
         }
 
-            #aa{
-                list-style-type: none;
-                display: block;
-                overflow: hidden;
-                margin:0;
-                padding:0;
-            }
-            #ulaa{
-                float: left;
-            }
+        #aa{
+            list-style-type: none;
+            display: block;
+            overflow: hidden;
+            margin:0;
+            padding:0;
+        }
+        #ulaa{
+            float: left;
+        }
+
+        .container-float{
+            z-index: 11;
+        }
+
+
 
     </style>
 </head>
@@ -187,7 +193,7 @@ $DBcon->close();
                 <?php
 
                 $myQuery = "SELECT * FROM study_group WHERE user_id = ".$_SESSION['userSession'];
-                $result = mysqli_query($myQuery) or die($myQuery."<br/><br/>".mysqli_error());
+                $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):
                     ?>
@@ -208,7 +214,7 @@ $DBcon->close();
                             </div>
                             <img src="img/images.jpg" style="width: 65px; height: 65px; border-radius: 100%; margin-top: -35px; margin-left: 240px" >
 
-                            <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin: 30px">
+                            <a href="timeline.php?gp_id=<?php echo $row['gp_id']; ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin: 30px">
                                 GO
                             </a>
                         </div>

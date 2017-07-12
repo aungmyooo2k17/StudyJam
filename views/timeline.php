@@ -10,6 +10,15 @@ if (!isset($_SESSION['userSession'])) {
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
 
+if(isset($_GET['gp_id'])){
+
+    $gpId = $_GET['gp_id'];
+    $group = $DBcon->query("SELECT * FROM study_group WHERE gp_id = $gpId");
+    $gpresult = $group->fetch_array();
+
+
+}
+
 if(isset($_POST['btn-creategp'])){
     $gpname = strip_tags($_POST['gpname']);
     $gptype = strip_tags($_POST['gptype']);
@@ -18,6 +27,8 @@ if(isset($_POST['btn-creategp'])){
 
     $query2 = "INSERT INTO study_group ( gp_name, gp_type, gp_admin, user_id ) VALUES ( '$gpname', '$gptype', '$gp_admin', '$user_id')";
     $DBcon->query($query2);
+
+
 
 }
 
@@ -131,7 +142,7 @@ $DBcon->close();
         </div>
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title"><?php echo $gpresult['gp_name']; ?></span>
 
             <div class="mdl-layout-spacer"></div>
 

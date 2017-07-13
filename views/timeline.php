@@ -63,10 +63,26 @@ $DBcon->close();
             background-color: #ffffff;
 
         }
+
+
+        #card-roomate{
+            margin-top: 24px;
+            box-shadow: 5px 5px 5px #888888;
+            width: 80%;
+            background-color: #ffffff;
+
+        }
+
         /*User post begineeing at here*/
         #card2{
             box-shadow: 10px 10px 5px #888888;
             width: 100%;
+            background-color: #ffffff;
+        }
+        #card2f{
+            margin-left: 3%;
+            box-shadow: 10px 10px 5px #888888;
+            width: 97%;
             background-color: #ffffff;
         }
         #post{
@@ -218,7 +234,7 @@ $DBcon->close();
                         </div>
                     </div>
                     <div class="col-lg-9">
-                        <div id="card2">
+                        <div id="card2f">
                             <div id="post">
                                 <div>
                                     <div class="banner">
@@ -322,28 +338,39 @@ $DBcon->close();
 
 
 
+            <ul style="list-style-type: none">
 
 
-                <div class="row">
-                    <div class="col-lg-3">
+                <?php
 
-                    </div>
-                    <div class="col-lg-9">
-                        <div id="card2">
-                            <div id="post">
-                                <div>
-                                    <div class="banner">
-                                        <div class="wrapper">
-                                            <p style="color: #fff;">
-                                                <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
-                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $query3Row['username']; ?></span>
-                                                <br>
-                                                <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
+                $myQuery = "SELECT * FROM timeline,study_group WHERE timeline.gp_id = study_group.gp_id AND timeline.gp_id = $gpId AND study_group.gp_id = $gpId";
+                $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
-                                            </p>
+                while($row = mysqli_fetch_assoc($result)):
+                ?>
+
+
+                <li>
+                    <div class="row">
+                        <div class="col-lg-3">
+
+                        </div>
+                        <div class="col-lg-9">
+                            <div id="card2">
+                                <div id="post">
+                                    <div>
+                                        <div class="banner">
+                                            <div class="wrapper">
+                                                <p style="color: #fff;">
+                                                    <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
+                                                    <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $row['post_owner']; ?></span>
+                                                    <br>
+                                                    <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
+
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span id="rigpost">
+                                        <span id="rigpost">
                                         <button id="demo-menu-lower-right"
                                                 class="mdl-button mdl-js-button mdl-button--icon">
                                             <i class="material-icons">more_vert</i>
@@ -357,42 +384,47 @@ $DBcon->close();
                                             <li class="mdl-menu__item">Yet Another Action</li>
                                         </ul>
                                     </span>
-                                </div>
-                                <hr>
-                                <div class="container">
-                                    <p>Warmly Welcome from <?php echo $gpresult['gp_name']; ?></p>
-                                </div>
+                                    </div>
+                                    <hr>
+                                    <div class="container">
+                                        <p>Warmly Welcome from <?php echo $gpresult['gp_name']; ?></p>
+                                    </div>
 
-                            </div>
-                            <div style="position: relative;">
-                                <div class="container-fluid" style="width: 100%;background-color: #EEEEEE;">
-                                    <form>
-                                        <div id="comment" style="width: 100%;">
-                                            <img src="img/10.jpg" style="width: 15px; height: 15px; border-radius: 100%">
-                                            <div class="mdl-textfield mdl-js-textfield" style="width: 95%;">
-                                                <input class="mdl-textfield__input" type="text" id="sample1">
-                                                <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                </div>
+                                <div style="position: relative;">
+                                    <div class="container-fluid" style="width: 100%;background-color: #EEEEEE;">
+                                        <form>
+                                            <div id="comment" style="width: 100%;">
+                                                <img src="img/10.jpg" style="width: 15px; height: 15px; border-radius: 100%">
+                                                <div class="mdl-textfield mdl-js-textfield" style="width: 95%;">
+                                                    <input class="mdl-textfield__input" type="text" id="sample1">
+                                                    <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                                </div>
+                                                <button id="demo-menu-lower-right"
+                                                        class="mdl-button mdl-js-button mdl-button--icon">
+                                                    <i class="material-icons">photo_camera</i>
+                                                </button>
+                                                <button id="demo-menu-lower-right"
+                                                        class="mdl-button mdl-js-button mdl-button--icon">
+                                                    <i class="material-icons">link</i>
+                                                </button>
+                                                <button style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                    Button
+                                                </button>
                                             </div>
-                                            <button id="demo-menu-lower-right"
-                                                    class="mdl-button mdl-js-button mdl-button--icon">
-                                                <i class="material-icons">photo_camera</i>
-                                            </button>
-                                            <button id="demo-menu-lower-right"
-                                                    class="mdl-button mdl-js-button mdl-button--icon">
-                                                <i class="material-icons">link</i>
-                                            </button>
-                                            <button style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                Button
-                                            </button>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <br>
+                    <br>
+                </li>
+                <? endwhile; ?>
+            </ul>
+
+
 
 
 
@@ -491,7 +523,12 @@ $DBcon->close();
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
             <div class="page-content">
 
-                jaifojeofjeiofjieojfeiofijefjejojfeofjoejfo
+                <div id="card-roomate" class="container">
+
+                    ajfejfie
+
+                </div>
+
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">

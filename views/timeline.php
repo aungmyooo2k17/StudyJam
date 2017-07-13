@@ -56,6 +56,11 @@ $DBcon->close();
 
     <title></title>
     <style>
+
+        .demo-list-icon {
+            width: 300px;
+        }
+
         #card{
 
             box-shadow: 5px 5px 5px #888888;
@@ -525,7 +530,26 @@ $DBcon->close();
 
                 <div id="card-roomate" class="container">
 
-                    ajfejfie
+                    <ul class="demo-list-icon mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Bryan Cranston
+                        </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Aaron Paul
+                        </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Bob Odenkirk
+                          </span>
+                        </li>
+                    </ul>
 
                 </div>
 

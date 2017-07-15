@@ -20,6 +20,9 @@ if(isset($_POST['btn-creategp'])){
     $DBcon->query($query2);
 
 
+    
+
+
 
 }
 

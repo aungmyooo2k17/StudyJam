@@ -19,6 +19,8 @@ if(isset($_POST['btn-creategp'])){
     $query2 = "INSERT INTO study_group ( gp_name, gp_type, gp_admin, user_id ) VALUES ( '$gpname', '$gptype', '$gp_admin', '$user_id')";
     $DBcon->query($query2);
 
+
+
 }
 
 if(isset($_POST['btn-joingp'])){
@@ -202,7 +204,7 @@ $DBcon->close();
 
                 <?php
 
-                $myQuery = "SELECT study_group.* FROM study_group, gpnusr WHERE gpnusr.user_id =".$_SESSION['userSession'];
+                $myQuery = "SELECT study_group.* FROM study_group WHERE study_group.user_id =".$_SESSION['userSession'];
                 $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):

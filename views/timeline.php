@@ -43,6 +43,17 @@ if(isset($_POST['submitted'])){
 }
 
 
+if(isset($_POST['commented'])){
+    $cmtuserID = strip_tags($_POST['cmtuserID']);
+    $cmtpostID = strip_tags($_POST['cmtpostID']);
+    $cmtgpID = strip_tags($_POST['cmtgpID']);
+    $cmttext = strip_tags($_POST['cmttext']);
+    $cmtQuery = "INSERT INTO comments ( cmt_text, post_id, user_id ,gp_id) VALUES ('$cmttext', '$cmtpostID', '$cmtuserID', '$cmtgpID')";
+    $DBcon->query($cmtQuery);
+}
+
+
+
 
 $DBcon->close();
 
@@ -282,31 +293,7 @@ $DBcon->close();
                                 </div>
 
                             </div>
-                            <div style="position: relative;">
-                                <div class="container-fluid" style="width: 100%;background-color: #EEEEEE;">
-                                    <form>
-                                        <div id="comment" style="width: 100%;">
-                                            <img src="img/10.jpg" style="width: 15px; height: 15px; border-radius: 100%">
-                                            <div class="mdl-textfield mdl-js-textfield" style="width: 95%;">
-                                                <input class="mdl-textfield__input" type="text" id="sample1">
-                                                <label class="mdl-textfield__label" for="sample1">Text...</label>
-                                            </div>
-                                            <button id="demo-menu-lower-right"
-                                                    class="mdl-button mdl-js-button mdl-button--icon">
-                                                <i class="material-icons">photo_camera</i>
-                                            </button>
-                                            <button id="demo-menu-lower-right"
-                                                    class="mdl-button mdl-js-button mdl-button--icon">
-                                                <i class="material-icons">link</i>
-                                            </button>
-                                            <button style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                Button
-                                            </button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -356,7 +343,7 @@ $DBcon->close();
 
                 <?php
 
-                $myQuery = "SELECT tbl_users.username, post.post_body FROM tbl_users LEFT JOIN post ON tbl_users.user_id = post.user_id WHERE post.gp_id = $gpId";
+                $myQuery = "SELECT tbl_users.*, post.* FROM tbl_users LEFT JOIN post ON tbl_users.user_id = post.user_id WHERE post.gp_id = $gpId";
                 $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):
@@ -406,11 +393,15 @@ $DBcon->close();
                                 </div>
                                 <div style="position: relative;">
                                     <div class="container-fluid" style="width: 100%;background-color: #EEEEEE;">
-                                        <form>
+                                        <form method="post">
+                                            <input type="hidden" name="cmtpostID" value="<?php echo $row['post_id'];?>">
+                                            <input type="hidden" name="cmtgpID" value="<?php echo $gpId; ?>">
+                                            <input type="hidden" name="cmtuserID" value="<?php echo $_SESSION['userSession']; ?>">
+
                                             <div id="comment" style="width: 100%;">
                                                 <img src="img/10.jpg" style="width: 15px; height: 15px; border-radius: 100%">
                                                 <div class="mdl-textfield mdl-js-textfield" style="width: 95%;">
-                                                    <input class="mdl-textfield__input" type="text" id="sample1">
+                                                    <input name="cmttext" class="mdl-textfield__input" type="text" id="sample1">
                                                     <label class="mdl-textfield__label" for="sample1">Text...</label>
                                                 </div>
                                                 <button id="demo-menu-lower-right"
@@ -421,8 +412,8 @@ $DBcon->close();
                                                         class="mdl-button mdl-js-button mdl-button--icon">
                                                     <i class="material-icons">link</i>
                                                 </button>
-                                                <button style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                    Button
+                                                <button type="submit" name="commented" style="right:10px;position: absolute;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                    Comment
                                                 </button>
                                             </div>
                                         </form>

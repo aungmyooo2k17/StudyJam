@@ -21,6 +21,14 @@ $query3Row = $query3->fetch_array();
 
 
 
+$adminID = $gpresult['gp_admin'];
+
+$adminName = $DBcon->query("SELECT tbl_users.username FROM tbl_users, study_group WHERE tbl_users.user_id = study_group.gp_admin AND study_group.gp_admin = $adminID");
+$AdminUserName = $adminName->fetch_array();
+
+
+
+
 if(isset($_POST['submitted'])){
     $Ppostbody = strip_tags($_POST['postBody']);
     $Puserid = strip_tags($_POST['userid']);
@@ -246,7 +254,7 @@ $DBcon->close();
                                         <div class="wrapper">
                                             <p style="color: #fff;">
                                                 <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
-                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $query3Row['username']; ?></span>
+                                                <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $AdminUserName['username']; ?></span>
                                                 <br>
                                                 <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
 
@@ -348,7 +356,7 @@ $DBcon->close();
 
                 <?php
 
-                $myQuery = "SELECT * FROM timeline,study_group WHERE timeline.gp_id = study_group.gp_id AND timeline.gp_id = $gpId AND study_group.gp_id = $gpId";
+                $myQuery = "SELECT tbl_users.username, post.post_body FROM tbl_users LEFT JOIN post ON tbl_users.user_id = post.user_id WHERE post.gp_id = $gpId";
                 $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):
@@ -368,7 +376,7 @@ $DBcon->close();
                                             <div class="wrapper">
                                                 <p style="color: #fff;">
                                                     <img src="img/10.jpg" style="width: 50px; height: 50px; border-radius: 100%">
-                                                    <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $row['post_owner']; ?></span>
+                                                    <span style="color:#2D2D2D; font-size: 16px; margin-top: 23px;"><?php echo $row['username']; ?></span>
                                                     <br>
                                                     <span class="ban2" style="color:#9D9D9D; font-size: 12px;">May 4</span>
 
@@ -392,7 +400,7 @@ $DBcon->close();
                                     </div>
                                     <hr>
                                     <div class="container">
-                                        <p>Warmly Welcome from <?php echo $gpresult['gp_name']; ?></p>
+                                        <p><?php echo $row['post_body']?></p>
                                     </div>
 
                                 </div>

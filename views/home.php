@@ -21,6 +21,16 @@ if(isset($_POST['btn-creategp'])){
 
 }
 
+if(isset($_POST['btn-joingp'])){
+
+    $user_id = strip_tags($_POST['userid']);
+    $gp_id = strip_tags($_POST['gpid']);
+
+    $query3 = "INSERT INTO gpnusr ( gp_id, user_id ) VALUES ( '$gp_id', '$user_id')";
+    $DBcon->query($query3);
+
+}
+
 
 
 $DBcon->close();
@@ -192,7 +202,7 @@ $DBcon->close();
 
                 <?php
 
-                $myQuery = "SELECT * FROM study_group WHERE user_id = ".$_SESSION['userSession'];
+                $myQuery = "SELECT study_group.* FROM study_group, gpnusr WHERE gpnusr.user_id =".$_SESSION['userSession'];
                 $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):
@@ -286,18 +296,19 @@ $DBcon->close();
         </dialog>
 
         <dialog id="dialog2" class="mdl-dialog">
-            <h4 class="mdl-dialog__title">Create Group</h4>
-            <form>
+            <h4 class="mdl-dialog__title">Join Group</h4>
+            <form method="post">
                 <div class="mdl-dialog__content">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
                         <input name="gpid" class="mdl-textfield__input" type="text" id="sample3">
+                        <input type="hidden" name="userid" value="<?php echo $_SESSION['userSession'];?>">
                         <label class="mdl-textfield__label" for="sample3">Group Code</label>
                     </div>
 
                 </div>
                 <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Agree</button>
-                    <button type="button" class="mdl-button close">Disagree</button>
+                    <button type="submit" name="btn-joingp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">JOIN</button>
+                    <button type="button" class="mdl-button close">CANCEL</button>
 
                 </div>
             </form>

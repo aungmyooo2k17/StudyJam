@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once '../models/dbconnect.php';
+include '../controllers/RandomColor.php';
+use \Colors\RandomColor;
 
 
 if (!isset($_SESSION['userSession'])) {
@@ -53,7 +55,20 @@ $DBcon->close();
     <link rel="stylesheet" href="cus-style/float-btn-for-homepage.css">
     <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
     <script type="text/javascript" src="mdl/material.min.js"></script>
+    <script type="text/javascript">
 
+      function activateTab(pageId) {
+          var tabCtrl = document.getElementById('tabCtrl');
+          var pageToActivate = document.getElementById(pageId);
+          for (var i = 0; i < tabCtrl.childNodes.length; i++) {
+              var node = tabCtrl.childNodes[i];
+              if (node.nodeType == 1) { /* Element */
+                  node.style.display = (node == pageToActivate) ? 'block' : 'none';
+              }
+          }
+      }
+
+    </script>
 
     <title></title>
     <style>
@@ -127,9 +142,182 @@ $DBcon->close();
             z-index: 11;
         }
 
+        /*change view design*/
+        @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
+.mrng-60-top {
+  margin-top: 60px;
+}
+/* Global Button Styles */
+a.animated-button:link, a.animated-button:visited {
+  position: relative;
+  display: block;
+  margin: 30px auto 0;
+  padding: 14px 15px;
+  color: #fff;
+  font-size:14px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: .08em;
+  border-radius: 0;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+a.animated-button:link:after, a.animated-button:visited:after {
+  content: "";
+  position: absolute;
+  height: 0%;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  z-index: -1;
+  -webkit-transition: all 0.75s ease 0s;
+  -moz-transition: all 0.75s ease 0s;
+  -o-transition: all 0.75s ease 0s;
+  transition: all 0.75s ease 0s;
+}
+a.animated-button:link:hover, a.animated-button:visited:hover {
+  color: #000000;
+  text-shadow: none;
+}
+a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
+  height: 450%;
+}
+a.animated-button:link, a.animated-button:visited {
+  position: relative;
+  display: block;
+  margin: 30px auto 0;
+  padding: 14px 15px;
+  color: #000000;
+  font-size:14px;
+  border-radius: 0;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: .08em;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+a.animated-button.thar-three {
+  color: #880e4f;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  border: 2px solid #FF4081;
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+0s;
+}
+a.animated-button.thar-three:hover {
+  color: #fff !important;
+  background-color: transparent;
+  text-shadow: nthree;
+}
+a.animated-button.thar-three:hover:before {
+  left: 0%;
+  right: auto;
+  width: 100%;
+}
+a.animated-button.thar-three:before {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 0px;
+  z-index: -1;
+  content: '';
+  color: #fff !important;
+  background: #FF4081;
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+0s;
+}
+a.animated-button.thar-four {
+  color: #880e4f;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  border: 2px solid #FF4081;
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+0s;
+}
+a.animated-button.thar-four:hover {
+  color: #fff !important;
+  background-color: transparent;
+  text-shadow: nfour;
+}
+a.animated-button.thar-four:hover:before {
+  right: 0%;
+  left: auto;
+  width: 100%;
+}
+a.animated-button.thar-four:before {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 0px;
+  z-index: -1;
+  content: '';
+  color: #fff !important;
+  background: #FF4081;
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+0s;
+}
+
+
+      #chg_v ul{
+
+        list-style-type: none;
+        display: inline;
+
+      }
+      #chg_v ul li{
+        margin-right: -6px;
+        display: inline-block;
+        height: 50px;
+      }
+      #chg_v ul li.selected{
+
+        display: inline-block;
+        height: 50px;
+        padding-top: 15px;
+        background-color: #FF4081;
+      }
+
+
+      #kk{
+        
+        display: inline;
+      }
+      /*end chagne view design*/
 
 
     </style>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+      $("li").click(function(e){
+        $("li").removeClass("selected");
+        $(this).addClass("selected");
+      });
+});
+     
+
+    </script>
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -141,7 +329,7 @@ $DBcon->close();
         <div class="mdl-layout__header-row">
 
             <!-- Title -->
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title">Study Jam</span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
@@ -155,8 +343,6 @@ $DBcon->close();
 
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                     for="demo-menu-lower-right">
-                    <li class="mdl-menu__item"><a href="#" style="text-decoration: none">About</a></li>
-                    <li class="mdl-menu__item"><a href="#" style="text-decoration: none">Contact Us</a></li>
                     <li class="mdl-menu__item"><a href="logout.php?logout" style="text-decoration: none">Logout</a></li>
 
                 </ul>
@@ -164,11 +350,11 @@ $DBcon->close();
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title">Study Jam</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="userprofile.php" style="text-decoration: none"><?php echo $userRow['username'];?></a>
 
-            <a class="mdl-navigation__link" href="" style="text-decoration: none">About</a>
+            <a class="mdl-navigation__link" href="../index.php" style="text-decoration: none">Main Page</a>
             <a class="mdl-navigation__link" href="logout.php?logout" style="text-decoration: none">Logout</a>
         </nav>
     </div>
@@ -177,11 +363,25 @@ $DBcon->close();
 
 
 
+    
+
+
+
+
         <?php
         $myQuery = "SELECT * FROM study_group WHERE user_id = ".$_SESSION['userSession'];
+        $myQuery2 = "SELECT gpnusr.* FROM gpnusr WHERE gpnusr.user_id =".$_SESSION['userSession'];
+        $result2 = mysqli_query($conn, $myQuery2) or die($myQuery2."<br/><br/>".mysql_error());
         $result = mysqli_query($conn,$myQuery) or die($myQuery."<br/><br/>".mysqli_error());
         $count = 0;
+
+
+
         while ($row = mysqli_fetch_assoc($result)){
+            $count++;
+        }
+
+        while ($row = mysqli_fetch_assoc($result2)) {
             $count++;
         }
 
@@ -202,7 +402,21 @@ $DBcon->close();
 
         <?php else: ?>
 
-        <div class="container">
+            <div id="chg_v" style="margin-top: 20px;">
+    <center>
+    <ul>
+      <li class="selected">
+        <a id="kk" class="btn btn-sm animated-button thar-three" href="javascript:activateTab('page1')">Created Group</a>
+      </li>
+      <li>
+        <a id="kk" class="btn btn-sm animated-button thar-four" href="javascript:activateTab('page2')">Joined Group</a>
+      </li>
+    </ul>
+    </center>
+    </div>
+    <div id="tabCtrl">
+      <div id="page1" style="display: block;">
+         <div class="container">
             <ul id="aa">
 
                 <?php
@@ -211,15 +425,27 @@ $DBcon->close();
                 $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
 
                 while($row = mysqli_fetch_assoc($result)):
+
+
+ 
+                  // $rgbColor = array();
+                   
+                  // //Create a loop.
+                  // foreach(array('r', 'g', 'b') as $color){
+                  //     //Generate a random number between 0 and 255.
+                  //     $rgbColor[$color] = mt_rand(0, 255);
+                  // }
+                   
+                  foreach (RandomColor::many(27, array('luminosity'=>'light')) as $c)
                     ?>
                     <li id="ulaa">
                         <div class="mdl-card mdl-shadow--4dp" style="margin: 16px;">
 
-                            <div style="background-image: url('img/2.png'); height: 150px; width: 100%;">
+                            <div style="background-color:<?php echo $c;?> ; height: 150px; width: 100%;">
                                 <div style="padding-left: 16px;">
-                                    <h4><?php echo $row['gp_name']?></h4>
-                                    <p><? echo $row['gp_name']?></p>
-                                    <h6><? echo $row['gp_name']?></h6>
+                                    <h3><?php echo $row['gp_name']?></h3>
+                                    <p><? echo $row['gp_type']?></p>
+                                    
                                 </div>
 
                                 <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon" style="margin-top: -135px; margin-left: 280px">
@@ -227,7 +453,54 @@ $DBcon->close();
                                 </button>
 
                             </div>
-                            <img src="img/images.jpg" style="width: 65px; height: 65px; border-radius: 100%; margin-top: -35px; margin-left: 240px" >
+                            <img src="uploads/<?php echo $row['gp_profilephoto'];?>" style="width: 65px; height: 65px; border-radius: 100%; margin-top: -35px; margin-left: 240px" >
+
+                            <a href="timeline.php?gp_id=<?php echo $row['gp_id']; ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin: 30px">
+                                GO
+                            </a>
+                        </div>
+                    </li>
+
+                <? endwhile; ?>
+
+            </ul>
+        </div>
+        
+      </div>
+
+  
+      
+        
+      
+      <div id="page2" style="display: none;">
+        <div class="container">
+            <ul id="aa">
+
+                <?php
+
+                $myQuery = "SELECT study_group.* FROM study_group, gpnusr WHERE study_group.gp_id = gpnusr.gp_id AND gpnusr.user_id =".$_SESSION['userSession'];
+                $result = mysqli_query($conn, $myQuery) or die($myQuery."<br/><br/>".mysqli_error());
+
+                while($row = mysqli_fetch_assoc($result)):
+
+                      foreach (RandomColor::many(27, array('luminosity'=>'light')) as $c)
+
+                    ?>
+                    <li id="ulaa">
+                        <div class="mdl-card mdl-shadow--4dp" style="margin: 16px;">
+
+                            <div style="background-color:<?php echo $c;?>; height: 150px; width: 100%;">
+                                <div style="padding-left: 16px;">
+                                    <h4><?php echo $row['gp_name']?></h4>
+                                    <p><? echo $row['gp_type']?></p>
+                                </div>
+
+                                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon" style="margin-top: -135px; margin-left: 280px">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+
+                            </div>
+                            <img src="uploads/<?php echo $row['gp_profilephoto'];?>" style="width: 65px; height: 65px; border-radius: 100%; margin-top: -35px; margin-left: 240px" >
 
                             <a href="timeline.php?gp_id=<?php echo $row['gp_id']; ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin: 30px">
                                 GO
@@ -240,6 +513,10 @@ $DBcon->close();
             </ul>
         </div>
         <?php endif ?>
+      </div>
+    </div>
+
+        
 
 
         <nav class="container-float">

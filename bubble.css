@@ -1,0 +1,80 @@
+
+.bubbles{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	transform: translateZ(0);
+}
+.bubbles li{
+	position: absolute;
+	list-style: none;
+	display: block;
+	background-color: gray;
+	bottom: -100px;
+	animation: square 20s infinite;
+	transition-timing-function: linear;
+}
+.bubbles li:nth-child(1){
+	width: 40px;
+	height:40px;
+	left: 20%;
+}
+.bubbles li:nth-child(2){
+	width: 60px;
+	height:60px;
+	left: 40%;
+	animation-delay: 2s;
+	animation-duration: 17s;
+}
+.bubbles li:nth-child(3){
+	width: 50px;
+	height:50px;
+	left: 60%;
+	animation-delay: 4s;
+	animation-duration: 13s;
+}
+.bubbles li:nth-child(4){
+	width: 80px;
+	height:80px;
+	left: 80%;
+	animation-delay: 1s;
+	animation-duration: 22s;
+}
+.bubbles li:nth-chile(5){
+	width: 50px;
+	height:50px;
+	left: 46%;
+	animation-delay: 7s;
+	animation-duration: 12s;
+}
+.bubbles li:nth-chile(6){
+	width: 80px;
+	height:80px;
+	left: 50%;
+	animation-delay: 7s;
+	animation-duration: 12s;
+}
+.bubbles li:nth-chile(7){
+	width: 50px;
+	height:50px;
+	left: 65%;
+	animation-delay: 5s;
+	animation-duration: 15s;
+}
+@keyframes square{
+	0%{
+		transform: translateY(0);
+	}
+	100%{
+		transform: translateY(-1080px) rotate(630deg);
+		-webkit-transform:translateY(-1080px) rotate(630deg);
+	}
+}
+body {
+	z-index: 1;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
